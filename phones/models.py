@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 
 class Phone(models.Model):
     id = models.AutoField(primary_key=True)
@@ -9,4 +10,8 @@ class Phone(models.Model):
     release_date = models.DateField(default=timezone.now)
     lte_exists = models.BooleanField(default=False)
     slug = models.SlugField(name, default=name)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
