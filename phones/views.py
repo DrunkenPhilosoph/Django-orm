@@ -28,6 +28,6 @@ def test_list(request):
 
 def show_product(request, slug):
     template = 'product.html'
-    phones_obj = Phone.objects.filter(slug=slug)
+    phones_obj = Phone.objects.get(slug=slug)
     context = {'phone': phones_obj}
     return render(request, template, context)
